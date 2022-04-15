@@ -30,26 +30,28 @@ class ListTodosComponent extends Component {
     return (
       <div className="list">
         <h1>List Todos</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>description</th>
-              <th>Is Completed?</th>
-              <th>Target Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.todos.map((todo) => (
+        <div className="container">
+          <table className="table">
+            <thead>
               <tr>
-                <td>{todo.id}</td>
-                <td>{todo.description}</td>
-                <td>{todo.done.toString()}</td>
-                <td>{todo.targetDate.toString()}</td>
+                {/* <th>id</th> */}
+                <th>description</th>
+                <th>Is Completed?</th>
+                <th>Target Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.state.todos.map((todo) => (
+                <tr>
+                  {/* <td>{todo.id}</td> */}
+                  <td>{todo.description}</td>
+                  <td>{todo.done.toString()}</td>
+                  <td>{todo.targetDate.toString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
