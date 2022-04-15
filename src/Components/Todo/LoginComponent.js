@@ -1,5 +1,5 @@
 import { Component } from "react";
-
+import AuthenticationService from "./AuthenticationService";
 class LoginComponent extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +64,10 @@ class LoginComponent extends Component {
     console.log(this.state);
     if (this.state.username === "Rahul" && this.state.password === "dummy") {
       //console.log("Login successful!");
+      AuthenticationService.registerSuccessfulLogin(
+        this.state.username,
+        this.state.password
+      );
       this.props.navigate(`/welcome/${this.state.username}`);
       this.setState({
         showSuccessMessage: true,
