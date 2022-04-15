@@ -8,6 +8,7 @@ import withParams from "./WithParams";
 import ListTodosComponent from "./ListTodosComponent";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
+import LogoutComponent from "./LogoutComponent";
 
 class TodoApp extends Component {
   render() {
@@ -25,6 +26,7 @@ class TodoApp extends Component {
               element={<WelcomeComponentWithParams />}
             />
             <Route path="/todos" element={<ListTodosComponent />} />
+            <Route path="/logout" element={<LogoutComponent />} />
             <Route path="*" element={<ErrorComponent />} />
           </Routes>
           <FooterComponent />
