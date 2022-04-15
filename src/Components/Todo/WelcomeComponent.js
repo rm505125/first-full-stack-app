@@ -1,11 +1,17 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-class WelcomeComponent extends Component {
-  // constructor(props) {
-  //   super(props);
+import HelloWorldService from "../../api/todo/HelloWorldService";
 
-  //   this.state = {};
-  // }
+class WelcomeComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      welcomeMessage: "",
+      success: false,
+    };
+    this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);
+  }
   render() {
     return (
       <>
@@ -23,12 +29,54 @@ class WelcomeComponent extends Component {
           >
             Get Welcome
           </button>
+          {this.state.success && (
+            <div className="container">{this.state.welcomeMessage}</div>
+          )}
+          {!this.state.success && (
+            <div className="container">{this.state.welcomeMessage}</div>
+          )}
         </div>
       </>
     );
   }
   retrieveWelcomeMessage = () => {
-    console.log("retrieve clicked!");
+    // HelloWorldService.executeHelloWorldService()
+    //   .then((response) => {
+    //     this.handleSuccessfulResponse(response);
+    //     console.log(response);
+    //   })
+
+    // taking object response
+    // HelloWorldService.executeHelloWorldBeanService()
+    //   .then((response) => {
+    //     this.handleSuccessfulResponse(response);
+    //     console.log(response);
+    //   })
+
+    HelloWorldService.executeHelloWorldPathVariableService(
+      this.props.params.name
+    )
+      .then((response) => {
+        this.handleSuccessfulResponse(response);
+        console.log(response);
+      })
+      .catch((error) => this.handleError(error));
+  };
+  handleSuccessfulResponse(response) {
+    this.setState({
+      //string response
+      //welcomeMessage: response.data,
+      // object responce
+      welcomeMessage: response.data.message,
+      success: true,
+    });
+  }
+  handleError = (error) => {
+    console.log(error.response);
+    this.setState({
+      welcomeMessage: error.response.data.message,
+      success: false,
+    });
   };
 }
 export default WelcomeComponent;
