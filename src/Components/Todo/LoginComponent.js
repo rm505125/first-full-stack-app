@@ -62,7 +62,10 @@ class LoginComponent extends Component {
 
   loginClicked = (event) => {
     console.log(this.state);
-    if (this.state.username === "Rahul" && this.state.password === "dummy") {
+    /**
+     * Hardcore authentication:
+    if (this.state.username === "Rahul" && this.state.password === "dummy") 
+    {
       //console.log("Login successful!");
       AuthenticationService.registerSuccessfulLogin(
         this.state.username,
@@ -80,6 +83,30 @@ class LoginComponent extends Component {
         hasLoginFailed: true,
       });
     }
+     */
+    //api authentication
+    AuthenticationService.executeBasicAuthenticationService(
+      this.state.username,
+      this.state.password
+    )
+      .then(() => {
+        AuthenticationService.registerSuccessfulLogin(
+          this.state.username,
+          this.state.password
+        );
+        this.props.navigate(`/welcome/${this.state.username}`);
+        this.setState({
+          showSuccessMessage: true,
+          hasLoginFailed: false,
+        });
+      })
+      .catch(() => {
+        console.log("Invalid credentials!");
+        this.setState({
+          showSuccessMessage: false,
+          hasLoginFailed: true,
+        });
+      });
   };
 
   /*

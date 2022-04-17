@@ -1,22 +1,33 @@
 import axios from "axios";
 
 class HelloWorldService {
-  // string response
   executeHelloWorldService() {
-    //console.log("HelloWorldService");
+    //console.log('executed service')
     return axios.get("http://localhost:8080/hello-world");
   }
-  // object response
+
   executeHelloWorldBeanService() {
-    //console.log("HelloWorldService");
+    //console.log('executed service')
     return axios.get("http://localhost:8080/hello-world-bean");
   }
-  // pathvariable response
+
   executeHelloWorldPathVariableService(name) {
-    //console.log("HelloWorldService");
+    // console.log("executed service");
+    // let username = name;
+    // let password = "dummy";
+
+    // let basicAuthHeader = "Basic " + window.btoa(username + ":" + password);
+
     return axios.get(
-      `http://localhost:8080/hello-world-bean/path-variable/${name}`
+      `http://localhost:8080/hello-world/path-variable/${name}`
+      // ,
+      // {
+      //   headers: {
+      //     authorization: basicAuthHeader,
+      //   },
+      // }
     );
   }
 }
+
 export default new HelloWorldService();

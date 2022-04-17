@@ -53,12 +53,13 @@ class WelcomeComponent extends Component {
     //     console.log(response);
     //   })
 
+    console.log(this.props.params.name);
     HelloWorldService.executeHelloWorldPathVariableService(
       this.props.params.name
     )
       .then((response) => {
-        this.handleSuccessfulResponse(response);
         console.log(response);
+        this.handleSuccessfulResponse(response);
       })
       .catch((error) => this.handleError(error));
   };
@@ -73,10 +74,18 @@ class WelcomeComponent extends Component {
   }
   handleError = (error) => {
     console.log(error.response);
-    this.setState({
-      welcomeMessage: error.response.data.message,
-      success: false,
-    });
+
+    let errorMessage = "";
+
+    if (error.message) {
+      errorMessage += error.message;
+    }
+
+    if (error.response && error.response.data) {
+      errorMessage += error.response.data.message;
+    }
+
+    this.setState({ welcomeMessage: errorMessage });
   };
 }
 export default WelcomeComponent;
